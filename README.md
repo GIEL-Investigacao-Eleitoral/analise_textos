@@ -1,0 +1,2 @@
+# analise_textos
+analise_de_textos_com_R
