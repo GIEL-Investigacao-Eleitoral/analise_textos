@@ -1,0 +1,373 @@
+---
+title: " ."
+categories: ["R","UNIRIO", "twitter", "Python"]
+tags: ["UNIRIO", "twitter","R", "Python"]
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      ratio: "16:9"
+---
+
+```{css, echo=FALSE}
+@import url('https://fonts.googleapis.com/css?family=Chilanka&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+body {
+  color: #fff;
+  font-family: 'Chilanka', cursive;
+  font-size: 22px;
+}
+
+.myfont {
+  color: #fff;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 80px;
+}
+
+.minhafont {
+  color: #3C989E;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 80px;
+}
+
+
+a:link {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+```
+
+```{r setup, include=FALSE, eval=TRUE}
+options(htmltools.dir.version = FALSE)
+library(xaringanthemer)
+library(xaringanExtra)
+library(knitr)
+style_mono_accent_inverse(base_color = "#1e666b",header_color ="#3C989E", title_slide_background_image ="img/capa.png")
+```
+
+```{r xaringan-animate-css, echo=FALSE}
+xaringanExtra::use_animate_css()
+xaringanExtra::use_panelset()
+```
+
+```{r meta, echo=FALSE,message=FALSE,warning=FALSE}
+library(metathis)
+meta() %>%
+  meta_general(
+  description = "Apresentação para o DMQ Talks da UNIRIO.",
+  generator = "xaringan and remark.js"
+  ) %>%
+meta_description("Apresentação para o DMQ Talks da UNIRIO.") %>% 
+meta_social(
+  title = "DMQ Talks/UNIRIO",
+  url = "https://dataunirio.github.io/DMQ_Talks/",
+  og_type = "website",
+  og_author = "DATAUNIRIO",
+  twitter_card_type = "summary_large_image",
+  twitter_creator = "@RJengajado"
+) 
+```
+
+
+<br>
+<br>
+<br>
+### O vídeo dessa apresentação [está disponível aqui](https://youtu.be/fAwsXfoYRWg)
+
+---
+
+# Escreva algo para mim
+
+### Por favor, coloque um comentário
+
+### [http://app.metodosquantitativos.com/perguntas/](http://app.metodosquantitativos.com/perguntas/)
+
+### [http://app.metodosquantitativos.com/perguntas_mostrar/](http://app.metodosquantitativos.com/perguntas_mostrar/)
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide4.PNG)
+background-size: cover
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide6.PNG)
+background-size: cover
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide7.PNG)
+background-size: cover
+
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide8.PNG)
+background-size: cover
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide9.PNG)
+background-size: cover
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide10.PNG)
+background-size: 1000px
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide11.PNG)
+background-size: 1000px
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide12.PNG)
+background-size: cover
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide13.PNG)
+background-size: cover
+
+[oglobo](https://blogs.oglobo.globo.com/luciana-froes/post/comensal-valoriza-mais-atendimento-do-que-comida-em-restaurantes-do-rio-e-de-sao-paulo-aponta-pesquisa.html)
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide14.PNG)
+background-size: cover
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide15.PNG)
+background-size: 1000px
+
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide16.PNG)
+background-size: 1000px
+
+
+---
+class: center, top ,myfont
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/repossitorio.png)
+background-size: cover
+
+
+[Repositório de dados](https://repositorio.metodosquantitativos.com/)
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide18.PNG)
+background-size: cover
+
+
+---
+
+.panelset[
+.panel[.panel-name[Gráfico]
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE,fig.width=6,fig.height=6}
+knitr::include_graphics("https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/inep.png")
+```
+
+]
+
+.panel[.panel-name[Fonte]
+
+### Aluno por Modalidade de Ensino no UNIRIO
+###    41% Curso a distância
+###    59% Presencial
+
+<br>
+<br>
+
+### Fonte dos dados: INEP
+### Ano de referëncia: 2017
+### Processamento: DATAUNIRIO
+]
+]
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide19.PNG)
+background-size: cover
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide20.PNG)
+background-size: cover
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide21.PNG)
+background-size: 1000px
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide22.PNG)
+background-size: cover
+
+[versão completa](https://raw.githubusercontent.com/DATAUNIRIO/aulaunirio/master/img/help_do_R.png)
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide23.PNG)
+background-size: 1000px
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/aulaunirio/master/img/2_Quanti_vs_Quali.png)
+background-size: cover
+
+[link](https://blog.metodosquantitativos.com/teste/)
+
+
+---
+class: center, top , minhafont
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/atividades.png)
+background-size: cover
+
+Atividades
+<br>
+<br>
+[Ativividades](https://atividades.metodosquantitativos.com/)
+<br>
+<br>
+<br>
+
+
+---
+class: center, top
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/blog.png)
+background-size: cover
+
+<br>
+<br>
+[link para o blog](https://atividades.metodosquantitativos.com/)
+<br>
+<br>
+<br>
+
+---
+class: center, top
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/livro.jpg)
+background-size: cover
+
+<br>
+<br>
+[livro](https://livro.metodosquantitativos.com/docs/)
+<br>
+<br>
+<br>
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide27.PNG)
+background-size: cover
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide28.PNG)
+background-size: cover
+
+
+---
+class: center, middle
+
+
+background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/anim7.gif)
+background-size: cover
+
+---
+class: center, middle
+
+# Não esqueça de escrever algo para mim
+
+#### [http://app.metodosquantitativos.com/perguntas/](http://app.metodosquantitativos.com/perguntas/)
+
+#### [http://app.metodosquantitativos.com/perguntas_mostrar/](http://app.metodosquantitativos.com/perguntas_mostrar/)
+
+
+---
+class: inverse, middle, center
+background-image: url(https://media.giphy.com/media/xUPOqo6E1XvWXwlCyQ/giphy.gif)
+background-size: contain
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+**[Se você quiser, visite o meu site](https://steven.metodosquantitativos.com/)**  
+
+[https://steven.metodosquantitativos.com/](https://steven.metodosquantitativos.com/)
+
