@@ -74,13 +74,13 @@ xaringanExtra::use_panelset()
 library(metathis)
 meta() %>%
   meta_general(
-  description = "Apresentação para o DMQ Talks da UNIRIO.",
+  description = "Análise de texto com o R",
   generator = "xaringan and remark.js"
   ) %>%
-meta_description("Apresentação para o DMQ Talks da UNIRIO.") %>% 
+meta_description("Análise de texto com o R") %>% 
 meta_social(
-  title = "DMQ Talks/UNIRIO",
-  url = "https://dataunirio.github.io/DMQ_Talks/",
+  title = "Análise de texto com o R",
+  url = "https://dataunirio.github.io/",
   og_type = "website",
   og_author = "DATAUNIRIO",
   twitter_card_type = "summary_large_image",
@@ -89,54 +89,128 @@ meta_social(
 ```
 
 
-<br>
-<br>
-<br>
-### O vídeo dessa apresentação [está disponível aqui](https://youtu.be/fAwsXfoYRWg)
+## Introdução
+
+Se você já viu outros cursos de Python ou de R, provavelmente entende como transformar dados numéricos em *insights* práticos. No entanto, **como podemos fazer isso com textos**?
+
+A solução mais fácil é **representar texto como dado.** Como é que isso funciona? Imagine que você tem um *corpus* de avaliações curtas do governador do RJ (que surgiram do tweeter, por exemplo). Para simplificar, vamos ver como isso funciona com três avaliações.
 
 ---
 
-# Escreva algo para mim
+1. Este é um péssimo governador, péssimo!
+2. Este governador é corrupto!
+3. É um ótimo GOVERNADOR!
 
-### Por favor, coloque um comentário
+O que podemos fazer?
+Bem, podemos contar palavras em cada documento.
 
-### [http://app.metodosquantitativos.com/perguntas/](http://app.metodosquantitativos.com/perguntas/)
+---
 
-### [http://app.metodosquantitativos.com/perguntas_mostrar/](http://app.metodosquantitativos.com/perguntas_mostrar/)
+```{r}
+library(tibble)
+library(flextable)
+tweet_1 = tibble(este=1, e=1, um=1, pessimo=2, governador=1) %>% flextable()
+tweet_1
+tweet_2 = tibble(este=1, governador=1, e=1, corrupto=1) %>% flextable()
+tweet_2
+tweet_3 = tibble(e=1, um=1, otimo=1, governador=1) %>% flextable()
+tweet_3
+```
+---
+
+# Tokenização
+
+Esse processo é chamado de tokenização. A tokenização é um processo de divisão de textos em tokens. Esses três textos foram divididos por palavras. É por isso que excluímos todos os sinais de pontuação das tabelas.
+
+Se você quiser trabalhar com esses três textos juntos, precisará combiná-los em um banco de dados ou matriz.
+Essa matriz é chamada de *document-term matrix* (DTM).
+
+---
+
+# Document-Term Matrix
+
+```{r}
+library(tibble)
+library(flextable)
+matriz = tibble(este=c(1,1,0), e=c(1,1,1), um=c(1,0,1), pessimo=c(2,0,0), governador=c(1,1,1),corrupto=c(0,1,0),otimo=c(0,0,1)) %>% flextable()
+matriz
+```
+
+Temos contagens para cada token por documento. Essa representação de texto é chamada de *bag-of-words*. Por que? Porque não preservamos as informações sobre a ordem das palavras dos documentos.
+
+Agora, imagine que você tenha um milhão de tweets. Esta tabela consistirá em milhões e milhões de colunas. A maioria dos valores nessas colunas será zero. O processo vai criar uma “maldição da dimensionalidade”.
+
+---
+
+Que tipo de passos podemos fazer para pré-processar documentos:
+1. Converter tokens em letras minúsculas.
+2. Remover a pontuação.
+3. Remover os números.
+4. Remover as *stopwords*. *Stopwords* são palavras que não devem diferenciar textos. Por exemplo, temos palavras que são muito comuns para fornecer informações adicionais no documento. 
+6. Avaliar palavras com erro de digitação.
+7. Incluir n-gramas.
+8. Stem ou Lemma de tokens (em breve).
+<!--vou falar sobre isso daqui a pouco-->
+
+---
+
+# Stopwords
 
 
 ---
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide4.PNG)
-background-size: cover
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide6.PNG)
-background-size: cover
 
 
----
-class: center, middle
+# Stem ou Lemma de tokens
 
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide7.PNG)
-background-size: cover
+“Stemming geralmente se refere a um processo heurístico bruto que corta o
+termina de palavras na esperança de atingir esse objetivo corretamente na maioria das vezes, e muitas vezes inclui o remoção de afixos derivacionais. 
 
+A lematização geralmente se refere a fazer as coisas corretamente com o uso
+de um vocabulário e análise morfológica das palavras, normalmente com o objetivo de remover terminações flexionais apenas e para retornar a forma base ou de dicionário de uma palavra, que é conhecida como lema”. 
 
+[Manning Christopher, Raghavan Prabhakar, Schütze Hinrich, Introduction to Information Retrieval, Cambridge University Press. 2008]
 
 ---
-class: center, middle
 
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide8.PNG)
-background-size: cover
+Stem ou Lemma
+
+COLOCAR EXEMPLOS AQUI
 
 ---
-class: center, middle
 
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide9.PNG)
-background-size: cover
+Podemos diminuir a importância de termos muito comuns em seus documentos. Nesse caso, Podemos aplicar pesos às contagens da DTM. O formato de ponderação mais popular é o IDF (inverse document term frequency)
+
+É calculado com a seguinte fórmula: log(N/nt), onde N é o número total de documentos, nt é o número de documentos onde o termo aparece.
+
+Este processo de ponderação é frequentemente usado como peso local de frequência de termo que usa proporções em vez de contagens. 
+
+O produto desses dois indices, tf e idf, é chamado tf-idf. 
+
+>The statistic tf-idf is intended to measure how important a word is to a document in a collection (or corpus) of documents, for example, to one novel in a collection of novels or to one website in a collection of websites. 
+*Julia Silge e David Robinson*
+
+---
+
+Agora, vamos tentar calcular os pesos tf-idf para nossa matriz de três termos de documento.
+
+Mostrarei como calcular o tf-idf no primeiro documento e você pode aplicá-lo para calcular pesos tf-idf para o segundo e terceiro documento.
+
+> Este é um péssimo governador, péssimo!
+
+Este 
+TF = Term frequency = 1/6. 
+IDF = log(3/2) = 0,405
+TF-IDF = 1/6 ∗ log(3/2) = 0,068
+
+Pessimo
+TF = Term frequency = 2/6. 
+IDF = log(3/1) = 1,1
+TF-IDF = 2/6 ∗ log(3/1) = 0,366
+
+Como você pode ver, esse processo de ponderação favorece “Pessímo”, que na verdade é uma palavra distintiva para este documento e penaliza “este”, que não tem significado distintivo nestes documentos.
+
+
+
 
 ---
 class: center, middle
@@ -156,35 +230,6 @@ class: center, middle
 background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide12.PNG)
 background-size: cover
 
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide13.PNG)
-background-size: cover
-
-[oglobo](https://blogs.oglobo.globo.com/luciana-froes/post/comensal-valoriza-mais-atendimento-do-que-comida-em-restaurantes-do-rio-e-de-sao-paulo-aponta-pesquisa.html)
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide14.PNG)
-background-size: cover
-
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide15.PNG)
-background-size: 1000px
-
-
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide16.PNG)
-background-size: 1000px
-
 
 ---
 class: center, top ,myfont
@@ -200,12 +245,6 @@ background-size: cover
 <br>
 <br>
 <br>
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide18.PNG)
-background-size: cover
 
 
 ---
@@ -233,113 +272,6 @@ knitr::include_graphics("https://raw.githubusercontent.com/DATAUNIRIO/CSS/master
 ### Processamento: DATAUNIRIO
 ]
 ]
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide19.PNG)
-background-size: cover
-
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide20.PNG)
-background-size: cover
-
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide21.PNG)
-background-size: 1000px
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide22.PNG)
-background-size: cover
-
-[versão completa](https://raw.githubusercontent.com/DATAUNIRIO/aulaunirio/master/img/help_do_R.png)
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide23.PNG)
-background-size: 1000px
-
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/aulaunirio/master/img/2_Quanti_vs_Quali.png)
-background-size: cover
-
-[link](https://blog.metodosquantitativos.com/teste/)
-
-
----
-class: center, top , minhafont
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/atividades.png)
-background-size: cover
-
-Atividades
-<br>
-<br>
-[Ativividades](https://atividades.metodosquantitativos.com/)
-<br>
-<br>
-<br>
-
-
----
-class: center, top
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/blog.png)
-background-size: cover
-
-<br>
-<br>
-[link para o blog](https://atividades.metodosquantitativos.com/)
-<br>
-<br>
-<br>
-
----
-class: center, top
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/livro.jpg)
-background-size: cover
-
-<br>
-<br>
-[livro](https://livro.metodosquantitativos.com/docs/)
-<br>
-<br>
-<br>
-
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide27.PNG)
-background-size: cover
-
-
----
-class: center, middle
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/Slide28.PNG)
-background-size: cover
-
-
----
-class: center, middle
-
-
-background-image: url(https://raw.githubusercontent.com/DATAUNIRIO/CSS/master/img/talk/anim7.gif)
-background-size: cover
 
 ---
 class: center, middle
