@@ -89,23 +89,13 @@ Os métodos digitais trouxeram uma nova abordagem para os processos de pesquisa 
 
 [https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/dados_sna.xlsx](https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/dados_sna.xlsx)
    
-   
-  
-[https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/os_miseraveis.xlsx](https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/os_miseraveis.xlsx)
-  
-   
-[https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/star.xlsx](https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/star.xlsx)
+[https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx)
+
 
 ### RData
 
-[https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/dados_sna.RData](https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/dados_sna.RData)  
   
-   
-[https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/os_miseraveis.Rdata](https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/os_miseraveis.Rdata)   
-   
-  
-[https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/star.Rdata](https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/star.Rdata)
-
+[https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/frases_dom_casmurro.RDATA](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/frases_dom_casmurro.RDATA)
 
 ### Apresentação
 
