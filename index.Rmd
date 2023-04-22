@@ -69,7 +69,7 @@ knitr::include_graphics('logo.png')
 
 # Plano de Ensino
 
-### DESCRIÇÃO DO MINICURSO
+### DESCRIÇÃO DO ENCONTRO
 
 Os métodos digitais trouxeram uma nova abordagem para os processos de pesquisa em Humanas e Ciências Sociais. Nesse minicurso, apresentaremos um dos principais novos métodos: **Análise de Texto** como dado não estruturado. Assim, vamos analisar de forma prática os textos por meio de uma abordagem quantitativa. Discutiremos as principais abordagens de análise de texto. Os(as) alunos(as) irão utilizar dados e informações reais e serão capazes de construir visualizações de dados, a partir de registros brutos, além de avaliarem as características desses textos para extrair insights úteis.      
    
