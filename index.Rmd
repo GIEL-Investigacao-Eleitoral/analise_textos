@@ -76,19 +76,13 @@ Os métodos digitais trouxeram uma nova abordagem para os processos de pesquisa 
    
 # Códigos 
 
-[https://raw.githubusercontent.com/DATAUNIRIO/minicurso_analise_texto/main/codigos/codigo_dia_01.R](https://raw.githubusercontent.com/DATAUNIRIO/minicurso_analise_texto/main/codigos/codigo_dia_01.R)
-
-[https://raw.githubusercontent.com/DATAUNIRIO/minicurso_analise_texto/main/codigos/codigo_dia_02.R](https://raw.githubusercontent.com/DATAUNIRIO/minicurso_analise_texto/main/codigos/codigo_dia_02.R)
-
-[https://raw.githubusercontent.com/DATAUNIRIO/minicurso_analise_texto/main/codigos/codigo_extra.R](https://raw.githubusercontent.com/DATAUNIRIO/minicurso_analise_texto/main/codigos/codigo_extra.R)   
+DESENVOLVER 
    
    
 # Base de dados 
 
 ### Excel
 
-[https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/dados_sna.xlsx](https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/dados/dados_sna.xlsx)
-   
 [https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx)
 
 
@@ -99,7 +93,7 @@ Os métodos digitais trouxeram uma nova abordagem para os processos de pesquisa 
 
 ### Apresentação
 
-[https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/escopo/apresentacao.pdf](https://github.com/DATAUNIRIO/minicurso_SNA/raw/main/escopo/apresentacao.pdf)
+DESENVOLVER
 
 ## OBJETIVO
 
@@ -111,18 +105,18 @@ O objetivo central do curso é promover a capacidade de criar códigos para aná
 
 ## Programação
 
-**1. Motivação**   
-1.  Matérias    
+**1. Motivação** (25 minutos)     
+1.  Matérias     
 2.  Estudos de casos
 
 ***
 
-**2. Termos e Conceitos**
+**2. Termos e Conceitos** (35 minutos)
 
 1.  Introdução ao texto como dado
 2.  Conceitos Basicos: stopwords, corpus, token, lemma e stem
 
-**3. Aplicação no R**  
+**3. Aplicação no R**  (2 horas)
 
 1. Introdução/revisão de R  
 2. Carregar dados de texto no R   
@@ -140,7 +134,7 @@ ROSS, Steven Dutt; CRUZ, Breno de Paula Andrade. Análise quantitativa de textos
 
 SILGE, Julia; ROBINSON, David. Text mining with R: A tidy approach. " O'Reilly Media, Inc.", 2017. Disponível em [https://www.tidytextmining.com/index.html](https://www.tidytextmining.com/index.html)
 
-https://bookdown.org/davi_moreira/txt4cs2/processamento.html
+<!--https://bookdown.org/davi_moreira/txt4cs2/processamento.html-->
 
 
 ### Bibliografia complementar
