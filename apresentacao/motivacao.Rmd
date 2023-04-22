@@ -1,0 +1,149 @@
+---
+title: " ."
+categories: ["R","UNIRIO", "twitter", "Python"]
+tags: ["UNIRIO", "twitter","R", "Python"]
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      ratio: "16:9"
+---
+
+```{css, echo=FALSE}
+@import url('https://fonts.googleapis.com/css?family=Chilanka&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+body {
+  color: #1e666b;
+  font-family: 'Chilanka', cursive;
+  font-size: 22px;
+}
+
+.myfont {
+  color: #1e666b;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 80px;
+}
+
+.minhafont {
+  color: #3C989E;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 80px;
+}
+
+
+
+```
+
+```{r setup, include=FALSE, eval=TRUE}
+options(htmltools.dir.version = FALSE)
+library(xaringanthemer)
+library(xaringanExtra)
+library(knitr)
+style_mono_accent(base_color = "#1e666b",header_color ="#3C989E", title_slide_background_image ="img/capa.png")
+#style_mono_accent_inverse(base_color = "#1e666b",header_color ="#3C989E", title_slide_background_image ="img/capa.png")
+
+knitr::opts_chunk$set(echo = FALSE,message = FALSE, warning = FALSE,comment = NA)
+
+options(digits = 2)
+```
+
+```{r xaringan-animate-css, echo=FALSE}
+#xaringanExtra::use_animate_css()
+xaringanExtra::use_panelset()
+```
+
+```{r meta, echo=FALSE,message=FALSE,warning=FALSE}
+library(metathis)
+meta() %>%
+  meta_general(
+  description = "Análise de texto com o R",
+  generator = "xaringan and remark.js"
+  ) %>%
+meta_description("Análise de texto com o R") %>% 
+meta_social(
+  title = "Análise de texto com o R",
+  url = "https://dataunirio.github.io/",
+  og_type = "website",
+  og_author = "DATAUNIRIO",
+  twitter_card_type = "summary_large_image",
+  twitter_creator = "@RJengajado"
+) 
+```
+
+# Roteiro
+
+## 1. Motivação
+## 2. Conceitos
+## 3. Programação R
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/apresentacao/img/nuvem_mobilidade.png)
+background-size: 1000px
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/apresentacao/img/emoji.jpg)
+background-size: 800px
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/apresentacao/img/modelo_machine.png)
+background-size: 800px
+
+
+---
+class: center, middle
+
+# Caso 1
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/apresentacao/img/caso1reduzido.png)
+background-size: 600px
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/apresentacao/img/caso1jane.png)
+background-size: 800px
+
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/apresentacao/img/caso1resultado.png)
+background-size: 600px
+
+
+
+---
+class: center, middle
+
+# Caso 2
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/apresentacao/img/caso2reduzido.png)
+background-size: 800px
+
+
+---
+class: center, middle
+
+background-image: url(https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/apresentacao/img/caso2parte2.png)
+background-size: 800px
+
+

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>.</title>
+    <meta charset="utf-8" />
+    <script src="index_files/header-attrs/header-attrs.js"></script>
+    <link href="index_files/animate.css/animate.xaringan.css" rel="stylesheet" />
+    <link href="index_files/panelset/panelset.css" rel="stylesheet" />
+    <script src="index_files/panelset/panelset.js"></script>
+    <meta name="description" content="Análise de texto com o R"/>
+    <meta name="generator" content="xaringan and remark.js"/>
+    <meta name="description" content="Análise de texto com o R"/>
+    <meta name="twitter:title" content="Análise de texto com o R"/>
+    <meta name="twitter:description" content="Análise de texto com o R"/>
+    <meta name="twitter:url" content="https://dataunirio.github.io/"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@RJengajado"/>
+    <meta name="twitter:site" content="@RJengajado"/>
+    <meta property="og:title" content="Análise de texto com o R"/>
+    <meta property="og:description" content="Análise de texto com o R"/>
+    <meta property="og:url" content="https://dataunirio.github.io/"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="article:author" content="DATAUNIRIO"/>
+    <link href="index_files/tabwid/tabwid.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# .
+]
+
+---
+
+
+&lt;style type="text/css"&gt;
+@import url('https://fonts.googleapis.com/css?family=Chilanka&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&amp;display=swap');
+body {
+  color: #1e666b;
+  font-family: 'Chilanka', cursive;
+  font-size: 22px;
+}
+
+.myfont {
+  color: #1e666b;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 80px;
+}
+
+.minhafont {
+  color: #3C989E;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 80px;
+}
+
+
+
+&lt;/style&gt;
+
+
+
+
+
+
+
+
+## Introdução
+
+Se você já viu outros cursos de R ou de Python, provavelmente já entende como transformar dados numéricos em *insights* práticos.   
+
+
+No entanto, **como podemos fazer isso com textos**?
+
+### A solução mais fácil é **representar texto como dado.** 
+
+Como é que isso funciona? Imagine que você tem um *corpus* (coletânia de documentos) de postagens do twitter sobre o governador do RJ. Para simplificar, vamos ver como isso funciona com três tweets.
+
+&gt; 1. Este é um péssimo governador, péssimo!
+
+&gt; 2. Este governador é corrupto!  
+
+&gt; 3. É um ótimo GOVERNADOR!
+
+O que podemos fazer?
+Bem, podemos contar palavras em cada documento.
+
+---
+
+# Como contar palavras em cada tweet
+
+&lt;template id="870fb63a-6454-4534-8585-c657e5991a45"&gt;&lt;style&gt;
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+&lt;/style&gt;&lt;div class="tabwid"&gt;&lt;style&gt;.cl-051e5c64{}.cl-050f3f5e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-05156938{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-05159386{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05159387{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table class='cl-051e5c64'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-05159386"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;este&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05159386"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;e&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05159386"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;um&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05159386"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;pessimo&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05159386"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;governador&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-05159387"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05159387"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05159387"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05159387"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05159387"&gt;&lt;p class="cl-05156938"&gt;&lt;span class="cl-050f3f5e"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/template&gt;
+&lt;div class="flextable-shadow-host" id="b139af98-11d7-4f9c-8e2f-209ff2de258f"&gt;&lt;/div&gt;
+&lt;script&gt;
+var dest = document.getElementById("b139af98-11d7-4f9c-8e2f-209ff2de258f");
+var template = document.getElementById("870fb63a-6454-4534-8585-c657e5991a45");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+&lt;/script&gt;
+  
+    
+.    
+&lt;template id="a581e765-04ec-4a13-9f14-d1d83bdd801e"&gt;&lt;style&gt;
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+&lt;/style&gt;&lt;div class="tabwid"&gt;&lt;style&gt;.cl-053c025a{}.cl-052d2ffa{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0533dc10{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0534012c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05340136{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table class='cl-053c025a'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-0534012c"&gt;&lt;p class="cl-0533dc10"&gt;&lt;span class="cl-052d2ffa"&gt;este&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0534012c"&gt;&lt;p class="cl-0533dc10"&gt;&lt;span class="cl-052d2ffa"&gt;governador&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0534012c"&gt;&lt;p class="cl-0533dc10"&gt;&lt;span class="cl-052d2ffa"&gt;e&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0534012c"&gt;&lt;p class="cl-0533dc10"&gt;&lt;span class="cl-052d2ffa"&gt;corrupto&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-05340136"&gt;&lt;p class="cl-0533dc10"&gt;&lt;span class="cl-052d2ffa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05340136"&gt;&lt;p class="cl-0533dc10"&gt;&lt;span class="cl-052d2ffa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05340136"&gt;&lt;p class="cl-0533dc10"&gt;&lt;span class="cl-052d2ffa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05340136"&gt;&lt;p class="cl-0533dc10"&gt;&lt;span class="cl-052d2ffa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/template&gt;
+&lt;div class="flextable-shadow-host" id="bdf5acf3-7ad0-44ff-a055-5dcadd884a16"&gt;&lt;/div&gt;
+&lt;script&gt;
+var dest = document.getElementById("bdf5acf3-7ad0-44ff-a055-5dcadd884a16");
+var template = document.getElementById("a581e765-04ec-4a13-9f14-d1d83bdd801e");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+&lt;/script&gt;
+  
+    
+      .
+&lt;template id="70a9dd4f-8cff-438c-acb6-f1eeb8ee5188"&gt;&lt;style&gt;
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+&lt;/style&gt;&lt;div class="tabwid"&gt;&lt;style&gt;.cl-05599e32{}.cl-054b35d6{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-055062cc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-05508b9e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05508ba8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table class='cl-05599e32'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-05508b9e"&gt;&lt;p class="cl-055062cc"&gt;&lt;span class="cl-054b35d6"&gt;e&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05508b9e"&gt;&lt;p class="cl-055062cc"&gt;&lt;span class="cl-054b35d6"&gt;um&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05508b9e"&gt;&lt;p class="cl-055062cc"&gt;&lt;span class="cl-054b35d6"&gt;otimo&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05508b9e"&gt;&lt;p class="cl-055062cc"&gt;&lt;span class="cl-054b35d6"&gt;governador&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-05508ba8"&gt;&lt;p class="cl-055062cc"&gt;&lt;span class="cl-054b35d6"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05508ba8"&gt;&lt;p class="cl-055062cc"&gt;&lt;span class="cl-054b35d6"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05508ba8"&gt;&lt;p class="cl-055062cc"&gt;&lt;span class="cl-054b35d6"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05508ba8"&gt;&lt;p class="cl-055062cc"&gt;&lt;span class="cl-054b35d6"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/template&gt;
+&lt;div class="flextable-shadow-host" id="38b9f2f4-c9b4-4819-8e0e-cfddfd6ec038"&gt;&lt;/div&gt;
+&lt;script&gt;
+var dest = document.getElementById("38b9f2f4-c9b4-4819-8e0e-cfddfd6ec038");
+var template = document.getElementById("70a9dd4f-8cff-438c-acb6-f1eeb8ee5188");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+&lt;/script&gt;
+
+---
+
+# Tokenização
+
+Esse processo é chamado de tokenização. A tokenização é um processo de divisão de textos em *tokens*.   
+
+Esses três textos foram divididos por palavras. Para isso,  excluímos todos os sinais de pontuação das tabelas.
+
+Se você quiser trabalhar com esses três textos juntos, precisará combiná-los em um banco de dados ou matriz. 
+
+Essa matriz é chamada de *document-term matrix* (DTM).
+
+---
+
+# Document-Term Matrix
+
+&lt;template id="64a057df-4444-4c64-85fa-ea9166ed8a31"&gt;&lt;style&gt;
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+&lt;/style&gt;&lt;div class="tabwid"&gt;&lt;style&gt;.cl-057f38c2{}.cl-057159aa{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0576b5d0{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0576da92{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0576da9c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0576daa6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table class='cl-057f38c2'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-0576da92"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;este&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0576da92"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;e&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0576da92"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;um&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0576da92"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;pessimo&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0576da92"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;governador&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0576da92"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;corrupto&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0576da92"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;otimo&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576da9c"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-0576daa6"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576daa6"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576daa6"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576daa6"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576daa6"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576daa6"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;0&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0576daa6"&gt;&lt;p class="cl-0576b5d0"&gt;&lt;span class="cl-057159aa"&gt;1&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/template&gt;
+&lt;div class="flextable-shadow-host" id="32c30e7f-3fe2-4d7a-898e-de33b08117e7"&gt;&lt;/div&gt;
+&lt;script&gt;
+var dest = document.getElementById("32c30e7f-3fe2-4d7a-898e-de33b08117e7");
+var template = document.getElementById("64a057df-4444-4c64-85fa-ea9166ed8a31");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+&lt;/script&gt;
+
+Temos contagens para cada *token* por documento. Essa representação de texto é chamada de *bag-of-words*. Por quê? Porque não preservamos as informações sobre a ordem das palavras dos documentos.
+
+Agora, imagine que você tem um banco de dados com um milhão de tweets. Esta tabela consistirá em milhões e milhões de colunas. A maioria dos valores nessas colunas será zero. O processo vai criar uma “maldição da dimensionalidade”.
+
+---
+
+# Pré-processamento de documentos  
+
+Que tipo de passos podemos fazer para pré-processar documentos:  
+1. Converter tokens em letras minúsculas.  
+2. Remover a pontuação.  
+3. Remover os números.  
+4. Remover as *stopwords*. *Stopwords* são palavras que não devem diferenciar textos. Por exemplo, temos palavras que são muito comuns para fornecer informações adicionais no documento.  
+6. Avaliar palavras com erro de digitação.  
+7. Incluir n-gramas.  
+8. Stem ou Lemma de tokens (em breve).  
+&lt;!--vou falar sobre isso daqui a pouco--&gt;
+
+---
+
+&lt;img src="img/limpeza.png" width="1932" /&gt;
+
+
+---
+
+# Stopwords
+
+Stopwords são palavras que podem ser consideradas irrelevantes para o resultados.
+
+Exemplos: que, as, e, os, de, para, com, sem, foi.
+
+---
+
+
+# Stem ou Lemma de tokens
+
+“Stemming geralmente se refere a um processo heurístico bruto que corta o
+termina de palavras na esperança de atingir esse objetivo corretamente na maioria das vezes, e muitas vezes inclui o remoção de afixos derivacionais. 
+
+A lematização geralmente se refere a fazer as coisas corretamente com o uso
+de um vocabulário e análise morfológica das palavras, normalmente com o objetivo de remover terminações flexionais apenas e para retornar a forma base ou de dicionário de uma palavra, que é conhecida como lema”. 
+
+[Manning Christopher, Raghavan Prabhakar, Schütze Hinrich, Introduction to Information Retrieval, Cambridge University Press. 2008]
+
+---
+
+# Stem ou Lemma
+
+### Stem é o processo de reduzir uma palavra ao seu radical.    
+
+**And**ei, **And**e, **And**arei, **Anda**mento, **Anda**ndo, **Anda**nte…   não teria que virar Andar ou Anda
+
+### Lematização é o processo de deflexionar uma palavra para determinar o seu lema
+
+As palavras gato, gata, gatos, gatas são todas formas do lema: gato.    
+As palavras tiver, tenho, tinha, tem são do mesmo lema ter.    
+As palavras bom, melhor e ótimo são todas formas do lema: bom.      
+
+---
+
+Podemos diminuir a importância de termos muito comuns em seus documentos. Nesse caso, Podemos aplicar pesos às contagens da DTM. O formato de ponderação mais popular é o IDF (inverse document term frequency)
+
+É calculado com a seguinte fórmula: `$$IDF = log(N/nt)$$`, onde N é o número total de documentos, nt é o número de documentos onde o termo aparece.
+
+Este processo de ponderação é frequentemente usado como peso local de frequência de termo que usa proporções em vez de contagens. 
+
+O produto desses dois indices, tf e idf, é chamado tf-idf. 
+
+&gt;The statistic tf-idf is intended to **measure how important a word is to a document in a collection (or corpus) of documents**, for example, to one novel in a collection of novels or to one website in a collection of websites. 
+*Julia Silge e David Robinson*
+
+---
+
+Agora, vamos tentar calcular os pesos tf-idf para nossa matriz de três termos de documento.
+
+Mostrarei como calcular o tf-idf no primeiro documento e você pode aplicá-lo para calcular pesos tf-idf para o segundo e terceiro documento.
+
+&gt; Este é um péssimo governador, péssimo!
+
+Este   
+TF = Term frequency = 1/6      
+IDF = log(3/2) = 0,405    
+TF-IDF = 1/6 ∗ log(3/2) = 0,068    
+ 
+Pessimo   
+TF = Term frequency = 2/6.    
+IDF = log(3/1) = 1,1   
+TF-IDF = 2/6 ∗ log(3/1) = 0,366   
+
+Como você pode ver, esse processo de ponderação favorece “Pessímo”, que na verdade é uma palavra distintiva para este documento e penaliza “este”, que não tem significado distintivo nestes documentos.
+
+
+---
+
+# Bigramas, trigramas e n-gramas
+
+.panelset[
+.panel[.panel-name[Bigramas]
+&lt;template id="e44fa5c2-7bc4-4f96-a1c4-050ed479ae4a"&gt;&lt;style&gt;
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+&lt;/style&gt;&lt;div class="tabwid"&gt;&lt;style&gt;.cl-05a25eb0{}.cl-059463dc{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-05999be0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0599c0b6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0599c0c0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0599c0ca{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table class='cl-05a25eb0'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-0599c0b6"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;palavra_1&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-0599c0b6"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;palavra_2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-0599c0c0"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;Este&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0599c0c0"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;é&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-0599c0c0"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;é&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0599c0c0"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;um&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-0599c0c0"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;um&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0599c0c0"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;péssimo&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-0599c0c0"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;péssimo&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0599c0c0"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;governador&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-0599c0ca"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;governador&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-0599c0ca"&gt;&lt;p class="cl-05999be0"&gt;&lt;span class="cl-059463dc"&gt;péssimo&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/template&gt;
+&lt;div class="flextable-shadow-host" id="6e7845d0-ecf7-4c03-ba45-50a95fac927f"&gt;&lt;/div&gt;
+&lt;script&gt;
+var dest = document.getElementById("6e7845d0-ecf7-4c03-ba45-50a95fac927f");
+var template = document.getElementById("e44fa5c2-7bc4-4f96-a1c4-050ed479ae4a");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+&lt;/script&gt;
+
+]
+
+.panel[.panel-name[Trigrama]
+
+&lt;template id="e159b303-8d09-4f26-8b59-2209fadd7b49"&gt;&lt;style&gt;
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td, .tabwid th {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+&lt;/style&gt;&lt;div class="tabwid"&gt;&lt;style&gt;.cl-05be154c{}.cl-05b00006{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-05b546f6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-05b56adc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05b56ae6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-05b56ae7{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table class='cl-05be154c'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-05b56adc"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;palavra_1&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05b56adc"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;palavra_2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-05b56adc"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;palavra_3&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-05b56ae6"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;Este&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05b56ae6"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;é&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05b56ae6"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;um&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-05b56ae6"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;é&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05b56ae6"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;um&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05b56ae6"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;péssimo&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-05b56ae7"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;um&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05b56ae7"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;péssimo&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-05b56ae7"&gt;&lt;p class="cl-05b546f6"&gt;&lt;span class="cl-05b00006"&gt;governador&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/template&gt;
+&lt;div class="flextable-shadow-host" id="e594121e-bb1f-4fff-bce0-2ef322242fa1"&gt;&lt;/div&gt;
+&lt;script&gt;
+var dest = document.getElementById("e594121e-bb1f-4fff-bce0-2ef322242fa1");
+var template = document.getElementById("e159b303-8d09-4f26-8b59-2209fadd7b49");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+&lt;/script&gt;
+
+
+]
+
+.panel[.panel-name[Trigrama 2]
+&lt;img src="img/trigrama.png" width="1996" /&gt;
+]
+.panel[.panel-name[n-grama]
+
+&lt;img src="img/coocorencia.png" width="1615" /&gt;
+
+]
+]
+  
+---
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

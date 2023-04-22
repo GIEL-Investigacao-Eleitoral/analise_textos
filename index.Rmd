@@ -63,10 +63,9 @@ knitr::include_graphics('logo.png')
 
 ## Local: CCJP/UNIRIO
 
-## Dias: 09 de maio
+## Dia: 09 de maio
 
 ## Horário: 09:00 às 12:00
-
 
 # Plano de Ensino
 
@@ -122,37 +121,27 @@ O objetivo central do curso é promover a capacidade de criar códigos para aná
 
 ## Programação
 
-**1. Termos e Conceitos - Dia 19/06/2023**
-
-1.  Introdução ao texto como dado
-2.  Conceitos Basicos: stopwords, corpus, token, lemma e stem
-3.  Estudos de Casos      
+**1. Motivação**   
+1.  Matérias    
+2.  Estudos de casos
 
 ***
 
-**2. Aplicação no R - Dia 19/06/2023**  
+**2. Termos e Conceitos**
 
-1.  Introdução/revisão de R  
-2.  Dados (data.frame, matrizes) no R   
-3.  Carregar dados no R   
-4.  Limpeza de texto
+1.  Introdução ao texto como dado
+2.  Conceitos Basicos: stopwords, corpus, token, lemma e stem
 
-*** 
+**3. Aplicação no R**  
 
-**3. Aplicação no R (parte 2) - Dia 26/06/2023**
-
-1. Aplicação de Conceitos Basicos   
-2. Análise de palavras: Frequência e Nuvem   
-3. Análise de palavras: Tf-idf   
-
-
-```{r, echo=FALSE,eval=FALSE}
-# anotações para o Dia 3 (se existir)
-#1. Relacionamento entre palavras: n-gramas e coocorrência de Palavras
-#2. Emoji
-#3. Previsão da próxima palavra
-#4. expressões regulares
-```
+1. Introdução/revisão de R  
+2. Carregar dados de texto no R   
+3. Limpeza de texto
+4. Aplicação de Conceitos Basicos   
+5. Análise de palavras: Frequência e Nuvem   
+6. Análise de palavras: Tf-idf   
+7. Relacionamento entre palavras: Bigramas e Trigramas
+8. Análise de Emoji
 
 
 ### Bibliografia básica
@@ -160,7 +149,6 @@ O objetivo central do curso é promover a capacidade de criar códigos para aná
 ROSS, Steven Dutt; CRUZ, Breno de Paula Andrade. Análise quantitativa de textos: Apresentação e operacionalização da técnica via Twitter. Administração: Ensino e Pesquisa, v. 22, n. 1, 2021. Disponível em [https://raep.emnuvens.com.br/raep/article/view/1859/419](https://raep.emnuvens.com.br/raep/article/view/1859/419)
 
 SILGE, Julia; ROBINSON, David. Text mining with R: A tidy approach. " O'Reilly Media, Inc.", 2017. Disponível em [https://www.tidytextmining.com/index.html](https://www.tidytextmining.com/index.html)
-
 
 https://bookdown.org/davi_moreira/txt4cs2/processamento.html
 
