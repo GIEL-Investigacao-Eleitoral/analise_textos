@@ -1,7 +1,7 @@
 ---
 title: "INTRODUÇÃO À ANÁLISE DE TEXTOS COM A LINGUAGEM DE PROGRAMAÇÃO R"
 categories: ["R"]
-tags: ["R Markdown", "text", "stringr"]
+tags: ["R", "text", "stringr","wordcloud"]
 output:
   html_document:
     theme:
@@ -63,7 +63,7 @@ knitr::include_graphics('logo.png')
 
 ## Local: CCJP/UNIRIO
 
-## Dia: 09 de maio
+## Dia: 16 de maio de 2023
 
 ## Horário: 09:00 às 12:00
 
