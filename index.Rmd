@@ -73,31 +73,16 @@ knitr::include_graphics('logo.png')
 
 Os métodos digitais trouxeram uma nova abordagem para os processos de pesquisa em Humanas e Ciências Sociais. Nesse minicurso, apresentaremos um dos principais novos métodos: **Análise de Texto** como dado não estruturado. Assim, vamos analisar de forma prática os textos por meio de uma abordagem quantitativa. Discutiremos as principais abordagens de análise de texto. Os(as) alunos(as) irão utilizar dados e informações reais e serão capazes de construir visualizações de dados, a partir de registros brutos, além de avaliarem as características desses textos para extrair insights úteis.      
    
-   
-# Códigos 
-
-DESENVOLVER 
-   
-   
-# Base de dados 
-
-### Excel
-
-[https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx)
-
-
-### RData
-
-  
-[https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/frases_dom_casmurro.RDATA](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/frases_dom_casmurro.RDATA)
 
 ### Apresentação
 
-[Motivação](https://giel-investigacao-eleitoral.github.io/analise_textos/apresentacao/motivacao#1)  
+# [Motivação](https://giel-investigacao-eleitoral.github.io/analise_textos/apresentacao/motivacao#1)  
   
-[Termos e Conceitos](https://giel-investigacao-eleitoral.github.io/analise_textos/apresentacao/#1)
+# [Termos e Conceitos](https://giel-investigacao-eleitoral.github.io/analise_textos/apresentacao/#1)
 
-## OBJETIVO
+
+
+### OBJETIVO
 
 O objetivo central do curso é promover a capacidade de criar códigos para análise de texto utilizando a linguagem de programação R.
 
@@ -105,7 +90,7 @@ O objetivo central do curso é promover a capacidade de criar códigos para aná
 
 *** 
 
-## Programação
+### Programação
 
 **1. Motivação** (25 minutos)     
 1.  Matérias     
@@ -128,6 +113,32 @@ O objetivo central do curso é promover a capacidade de criar códigos para aná
 6. Relacionamento entre palavras: Bigramas e Trigramas
 7. Análise de palavras: Tf-idf
 8. Análise de Emoji
+
+
+### Códigos 
+
+## [Código](https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/codigo/codigo.R)
+
+## [Código extra](https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/codigo/codigo_extra.R)
+   
+   
+### Base de dados 
+
+## Excel
+
+[https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx)
+
+## TXT
+
+[https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/txt/Dom_Casmurro.txt](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/txt/Dom_Casmurro.txt)
+
+
+
+## RData
+
+[https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/banco_tweets.RDATA](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/banco_tweets.RDATA)
+
+[https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/frases_dom_casmurro.RDATA](https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/frases_dom_casmurro.RDATA)
 
 
 ### Bibliografia básica
