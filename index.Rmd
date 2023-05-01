@@ -93,7 +93,9 @@ DESENVOLVER
 
 ### Apresentação
 
-DESENVOLVER
+[Motivação](https://giel-investigacao-eleitoral.github.io/analise_textos/apresentacao/motivacao#1)  
+  
+[Termos e Conceitos](https://giel-investigacao-eleitoral.github.io/analise_textos/apresentacao/#1)
 
 ## OBJETIVO
 
@@ -123,8 +125,8 @@ O objetivo central do curso é promover a capacidade de criar códigos para aná
 3. Limpeza de texto
 4. Aplicação de Conceitos Basicos   
 5. Análise de palavras: Frequência e Nuvem   
-6. Análise de palavras: Tf-idf   
-7. Relacionamento entre palavras: Bigramas e Trigramas
+6. Relacionamento entre palavras: Bigramas e Trigramas
+7. Análise de palavras: Tf-idf
 8. Análise de Emoji
 
 
