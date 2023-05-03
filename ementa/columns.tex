@@ -1,0 +1,33 @@
+
+%%% colunas
+\newenvironment{cols}[1][]{}{}
+
+\newenvironment{col}[1]{\begin{minipage}{#1}\ignorespaces}{%
+\end{minipage}
+\ifhmode\unskip\fi
+\aftergroup\useignorespacesandallpars}
+
+\def\useignorespacesandallpars#1\ignorespaces\fi{%
+#1\fi\ignorespacesandallpars}
+
+\makeatletter
+\def\ignorespacesandallpars{%
+  \@ifnextchar\par
+    {\expandafter\ignorespacesandallpars\@gobble}%
+    {}%
+}
+\makeatother
+
+%%% fancy boxes
+% colors
+\definecolor{color1}{HTML}{045D5D}
+\definecolor{color2}{HTML}{333333}
+%%% fancy boxes
+\usepackage{tcolorbox}
+\usepackage{wrapfig}
+\def\fullboxbegin{
+\bigskip
+\begin{tcolorbox}[colback=color1,colframe=color1,coltext=white,arc=0mm,boxrule=0pt]
+}
+\def\fullboxend{\end{tcolorbox}\medskip}
+%
