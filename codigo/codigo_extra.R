@@ -3,7 +3,6 @@
 # prof. Steven Ross
 #-------------------------------------------------
 
-
 library(speechbr)
 library(tibble)
 library(stopwords)
@@ -26,16 +25,18 @@ discursos %>%
   wordcloud2()
 
 #-------------------------------------------------------
+#-------------------------------------------------------
 # install.packages("devtools")
 # devtools::install_github("hadley/emo")
 #-------------------------------------------------------
-
+#-------------------------------------------------------
 
 library(emo)
 library(tidyr)
 library(dplyr)
 library(reactable)
 
+load(url("https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/banco_tweets.RData"))
 table(banco_tweets$veiculo)
 
 emoji<-banco_tweets %>%

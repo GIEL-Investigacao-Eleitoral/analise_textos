@@ -8,6 +8,8 @@ Poeminho_do_Contra = c("Todos esses que aí estão",
                        "Eles passarão...",
                        "Eu passarinho!")
 
+Poeminho_do_Contra
+
 length(Poeminho_do_Contra)
 
 Poeminho_do_Contra[3]
@@ -33,7 +35,6 @@ text_tokens(texto, stemmer = "pt")
 #remotes::install_github("DATAUNIRIO/lemmar")
 
 library(lemmar)
-
 lemmatize_pt(texto)
 lemmatize_pt(Poeminho_do_Contra)
 
@@ -93,20 +94,26 @@ tidy_dom %>%
   geom_col(fill='red') +
   labs(y = NULL)
 
+#------------------------------------------------------------
+#------------------------------------------------------------
 # Estudo de caso 1 (nuvem de palavras do grupo de foco)
 # Importar
 # Transformar em tokens
+#------------------------------------------------------------
+#------------------------------------------------------------
 
-
-
-library(readxl)
 library(dplyr)
-grupo_foco <- read_excel("~/GitHub/analise_textos/dados/excel/transcricao_grupo_de_foco.xlsx")
+library(rio)
+link_dados = 'https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/excel/transcricao_grupo_de_foco.xlsx'
+grupo_foco  = rio::import(file = link_dados) 
+
+grupo_foco %>% 
+  glimpse()
+
 grupo_foco = grupo_foco %>% pull(texto) %>% tibble() 
 colnames(grupo_foco) = 'texto'
 tidy_grupo_foco =  grupo_foco %>%
   unnest_tokens(word, texto)
-
 
 TFGF = tidy_grupo_foco %>%
   anti_join(palavras_banidas) %>% 
@@ -161,8 +168,10 @@ ggraph(rede_bigrama) +
   geom_node_text(aes(label = name), vjust = 1, hjust = 1) 
 
 #-----------------------------------------------------------------------
+#-----------------------------------------------------------------------
+#-----------------------------------------------------------------------
 
-
+load(url("https://github.com/GIEL-Investigacao-Eleitoral/analise_textos/raw/main/dados/rdata/banco_tweets.RData"))
 
 #Bigramas de tweets 
 bigrama_tweets <- banco_tweets$text %>% tibble() 
@@ -177,10 +186,9 @@ bigrama_tweets <- bigrama_tweets %>%
   filter(!word1 %in% palavras_banidas$word) %>%
   filter(!word2 %in% palavras_banidas$word)
 
-
 contagem_bigramas = bigrama_tweets %>%
   count(word1, word2, sort = TRUE)
-
+contagem_bigramas
 
 rede_bigrama <- contagem_bigramas %>%
   filter(n > 150) %>%
@@ -195,9 +203,7 @@ ggraph(rede_bigrama) +
 
 
 # tf-idf 
-
 table(banco_tweets$veiculo)
-
 tweets_onibus = banco_tweets %>% filter(veiculo=='onibus')
 tweets_uber = banco_tweets %>% filter(veiculo=='uber')
 
@@ -208,14 +214,12 @@ colnames(tweets_onibus) = 'text'
 colnames(tweets_uber) = 'text'
 
 tweets_onibus = tweets_onibus %>% unnest_tokens(word, text)
-
 tweets_uber   = tweets_uber %>% unnest_tokens(word, text)
 
 tweets_onibus = tweets_onibus %>% anti_join(palavras_banidas) %>%   count(word, sort = TRUE)
 tweets_uber = tweets_uber %>% anti_join(palavras_banidas) %>%   count(word, sort = TRUE)
 tweets_onibus$veiculo = 'onibus'
 tweets_uber$veiculo = 'uber'
-
 
 tweets = tweets_onibus %>% add_row(tweets_uber)
 tweets_tf_idf <- tweets %>% bind_tf_idf(word, veiculo, n)
