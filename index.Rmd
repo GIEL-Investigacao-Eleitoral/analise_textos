@@ -121,8 +121,9 @@ O objetivo central do curso é promover a capacidade de criar códigos para aná
 
 **[Código](https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/codigo/codigo.R)**
 
-**[Código 2](https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/codigo/codigo_extra.R)**
+**[Código 2](https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/codigo/codigo2.R)**
    
+**[Código 3](https://raw.githubusercontent.com/GIEL-Investigacao-Eleitoral/analise_textos/main/codigo/codigo_extra.R)**
    
 ### Base de dados 
 
